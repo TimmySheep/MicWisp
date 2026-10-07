@@ -1,41 +1,78 @@
 # AGENTS.md — 项目规则
 
-本仓库是 Timmy 的自研 iOS 客户端项目。任何 AI agent（OpenCode / Codex / Hermes）在此工作时遵守以下规则。
+本仓库是 Timmy 的原生客户端项目：为 MicYou 无线麦克风协议编写**平台原生客户端**。
 
-## 项目边界
+**本仓库同时存在两条工作线，开工前先确认自己属于哪条：**
 
-- **目标**：用 Swift 独立实现 iPhone → PC 无线麦克风客户端，兼容 MicYou 桌面端协议。
-- **不做什么**：不把项目做成 MicYou 的 Fork，不引入上游 GPL 源码作为项目依赖。
+| 工作线 | 范围 | 任务书 |
+|---|---|---|
+| **iOS 客户端** | `Sources/`、`Tests/`、`MicYou.xcodeproj/`、Live Activity | `docs/PRODUCT_SCOPE.md` |
+| **桌面客户端（macOS + Windows）** | `apps/macos/`、`apps/windows/` | **`TASK.md`** |
 
-## 硬性红线
+## 共享红线（两条工作线都适用）
 
-1. **绝不复制上游 GPL 代码。** `MicYou-iOS/` 目录是只读参考，已被 `.gitignore` 排除。
-   - 允许：阅读上游代码理解协议行为。
-   - 禁止：把上游 `.m` / `.kt` / `.swift` 代码复制、粘贴、改改变量名后进入本项目。
-   - 协议事实（帧格式、magic、端口、消息类型）可以自由使用，接口不受版权保护。
-   - 参考 `PROTOCOL.md` 作为实现基线。
+1. **绝不复制上游 GPL 代码进本项目。**
+   - `upstream-micyou/`、`MicYou-iOS/` 是只读参考，已被 `.gitignore` 排除。
+   - 允许：阅读上游代码理解协议与行为、参考事件类型定义。
+   - 禁止：把上游 `.rs` / `.kt` / `.m` / `.swift` / `.proto` 代码复制进本项目源码。
+   - 协议事实（字段号、magic、握手串、端口）是接口事实，可自由实现。
+   - 以 `PROTOCOL.md`（真实协议，源码已验证）为唯一协议基线。
+   - **注意**：`MicYou-iOS/`（官方脚手架）的协议与真实桌面端**不互通**，
+     不要参考它的协议实现，只可参考其功能意图。
 
-2. **不做付费解锁（paywall）。** 项目定位是开源 + 打赏。任何"花钱解锁功能"的设计都违反项目定位。
+2. **禁止 webview / Electron / 网页套壳。** 必须使用平台原生框架。
 
-3. **不擅自扩大范围。** 当前阶段只做协议实现和基础音频链路；灵动岛等 UI 增强等主干稳定后再做。
+3. **产品名用占位名 `MicDesk`**（桌面线）。iOS 线沿用现有命名约定。
+   - **不得**使用 `MicYou` 作为产品名——GPL 不授予商标权。
+   - **不得**暗示本应用是官方 MicYou。
+
+4. **GPL-3.0 合规**：本项目以 GPL-3.0 分发；保留上游版权声明；
+   若修改上游源码，须显著标注修改及日期（§5a）、保留许可证（§5b）、
+   整体 GPL 授权（§5c）、界面显示 Appropriate Legal Notices（§5d）、
+   提供完整对应源码（§6）。
+
+5. **不要擅自改动用户的机器。** 尤其：
+   - 不要修改用户的 Windows 电脑，不要在那里安装软件或远程执行命令。
+   - 不要在未获批准前改动系统配置、网络设置或删除文件。
+
+6. **不谎报完成。** 构建失败就说失败；未验证就明确标注"未构建验证"。
+   模拟器/本机编译成功不能替代实机与真实桌面端验收。
+
+## 并行工作纪律（重要）
+
+两条工作线可能在**同一时间**被不同 agent 会话编辑。因此：
+
+- **只改自己范围内的文件。** 桌面线只写 `apps/macos/`、`apps/windows/`、
+  `core/`（如有）与自己新增的文档。
+- `Sources/MicYouCore/`（Swift 协议核心）由 iOS 线维护：**桌面线视为只读共享代码**，
+  如需改动，先在会话中明确说明理由，不要静默重写。
+- 不要触碰 `MicYou.xcodeproj/`、`Tests/`、`docs/PRODUCT_SCOPE.md`（iOS 线所有）。
+- 需要新文档时，用带前缀的名字（如 `docs/DESKTOP-*.md`）避免冲突。
 
 ## 技术约定
 
-- 语言：**Swift**（不用 Objective-C，除非有明确理由）。
-- 网络：优先 `Network.framework`（`NWConnection`），不用过时的 `CFStreamCreatePairWithSocketToHost`。
-- 音频：`AVAudioEngine` 采集；`AVAudioSession` 用 `.playAndRecord` + `AVAudioSessionModeVoiceChat`（注意正确常量名，别写成 `VoiceCommunication`）。
-- 协议编解码：手写 16 字节大端头，不依赖第三方库。
-- 目标：iOS 11+，arm64。
+- **macOS**：Swift 6 / SwiftUI，优先 SwiftPM 或标准 Xcode 工程。
+- **Windows**：WinUI 3 / C#（本机无 .NET SDK，构建验证可能需在 Windows 上进行）。
+- **音频后端**：复用上游 `micyou-cli serve`，不要自己实现虚拟音频设备
+  （上游已实现 BlackHole / VB-CABLE / PipeWire）。
+- **协议**：真实协议见 `PROTOCOL.md`（magic `0x4D696359`、握手 `MicYouCheck1/2`、TCP 8554 / UDP 8555）。
+- **控制通道**：上游 CLI 目前输出人类可读文本，需先设计结构化方案（见 `TASK.md` 第 4 节）。
 
 ## 工作方式
 
-- 改动前先读 `PROTOCOL.md` 和本文件。
-- 每个功能做完要有可验证的结果（能连上、能传音频），不要只写代码不验证。
+- **先读**：对应的任务书 → 本文件 → `docs/` 相关文档 → 再动手。
+- **先解决任务书列出的前置技术问题**，结论写入 `docs/`。
+- **先出实施计划**，再逐步实现；每阶段有可验证产出。
+- 重要决策追加到 `docs/DECISIONS.md`。
 - 提交信息用 `feat:` / `fix:` / `docs:` / `chore:` 前缀。
-- 重要决策写进 `docs/DECISIONS.md`。
 
-## 已知坑（来自上游 commit 历史）
+## 已知坑（已核实，不要再踩）
 
-- `AVAudioSessionModeVoiceCommunication` **不存在**，会导致编译错误；正确的是 `AVAudioSessionModeVoiceChat`。
-- RNNoise 需要 vendored 静态库，不要在构建时远程拉取。
-- `timestamp` 上游未做字节序转换，实现时要与服务端行为对齐（见 `PROTOCOL.md` 第 7 节）。
+- 官方 `MicYou-iOS` 脚手架协议与真实桌面端不互通（magic `iOST`/端口 8900）——勿参考。
+- 上游桌面端 `externalBin` 同时打包 `micyou-cli` 与 `micyou-tui`，核心被打包三遍；
+  我们只用一个后端，这是"轻量"的机会点。
+- `mode_lock`（`RunMode::Cli` / `RunMode::Gui`）：官方 GUI 与 CLI **互斥**运行。
+- 上游 `AVAudioSessionModeVoiceCommunication` 不存在，正确常量是 `AVAudioSessionModeVoiceChat`。
+- Opus 采样率仅支持 8/12/16/24/48 kHz；44.1 kHz 需映射到 48 kHz（若用 Opus）。
+- **PCM（codec=0）服务端完全支持**，首版可不实现 Opus。
+- 服务端 `decode()` 对 PCM 与 Opus 都有分支，PCM 不是废弃路径。

@@ -9,7 +9,7 @@ Timmy 的独立 iOS 客户端项目工作区。目标：用 Swift 自己重写�
 本项目路线：
 1. **只读研究**上游协议（已完成，见 `PROTOCOL.md`）
 2. **用 Swift 独立重写**客户端，不复制上游代码
-3. 加灵动岛 / Live Activity
+3. 独立原生实现客户端完整功能，并加入灵动岛 / Live Activity
 4. 全开源，收入来自打赏
 
 协议接口本身不受版权保护，独立实现是干净的。
@@ -22,6 +22,9 @@ micyou-ios-study/
 ├── README.md        # 本文件
 ├── AGENTS.md        # 给 AI agent 的项目规则
 ├── docs/            # 竞品分析、决策记录
+├── Sources/         # Swift 原生客户端与协议核心
+├── Tests/           # 协议与核心逻辑测试
+├── MicYou.xcodeproj/ # iOS App 与 Live Activity 工程
 ├── reference/       # 参考资料（自有笔记）
 └── MicYou-iOS/      # 上游 GPL 源码克隆，仅本地参考，已被 .gitignore 排除
 ```
@@ -37,14 +40,15 @@ git clone --branch v2 https://github.com/MicYou-Dev/MicYou-iOS.git MicYou-iOS
 
 - [x] 克隆并研究官方 iOS 仓库协议实现
 - [x] 整理独立协议规格 `PROTOCOL.md`
-- [ ] 建立 Xcode 工程骨架
-- [ ] 实现 TCP 连接 + Hello / KeepAlive / AudioFrame
-- [ ] 接入 AVAudioEngine 采集
+- [ ] 建立并验证 Xcode 工程骨架
+- [ ] 实现真实协议（握手 / Protobuf / TCP 与 UDP 音频 / 心跳 / 控制）
+- [ ] 接入 AVAudioEngine、音频处理与完整设置
+- [ ] 实现 mDNS、重连、日志、通知、更新检查与本地化
 - [ ] 灵动岛 / Live Activity
 - [ ] 上架准备（Apple Developer 年费 $99）
 
 ## 环境
 
 - 开发机：MacBook Pro（`tims-mbp`, macOS 27.0.1）
-- Xcode 工程目标：iOS 11+ 起（与上游一致），arm64
+- Xcode 工程目标：iOS 16.1+，arm64（Live Activity 最低系统版本）
 - 参考设备：iPhone 15（无个人数据，可用于测试）

@@ -1,16 +1,26 @@
 # 上游 GPL 代码：仅本地只读参考，不纳入本仓库
 MicYou-iOS/
+upstream-micyou/
 
 # macOS
 .DS_Store
 
-# 构建产物
-build/
+# Swift / Xcode 构建产物
+.build/
 DerivedData/
+xcuserdata/
+*.xcuserstate
+
+# Rust
+target/
+
+# .NET / Windows
+bin/
+obj/
+*.user
+
+# 通用构建产物
+build/
 *.o
 *.a
 build.log
-
-# Xcode
-xcuserdata/
-*.xcuserstate
