@@ -6,7 +6,7 @@
 
 | 工作线 | 范围 | 任务书 |
 |---|---|---|
-| **iOS 客户端** | `Sources/`、`Tests/`、`MicYou.xcodeproj/`、Live Activity | `docs/PRODUCT_SCOPE.md` |
+| **iOS 客户端（iPhone + iPad）** | `Sources/`、`Tests/`、`MicYou.xcodeproj/`、Live Activity、Widget | `docs/PRODUCT_SCOPE.md` |
 | **桌面客户端（macOS + Windows）** | `apps/macos/`、`apps/windows/` | **`TASK.md`** |
 
 ## 共享红线（两条工作线都适用）
@@ -56,6 +56,14 @@
 
 - **macOS**：Swift 6 / SwiftUI，优先 SwiftPM 或标准 Xcode 工程。
 - **Windows**：WinUI 3 / C#（本机无 .NET SDK，构建验证可能需在 Windows 上进行）。
+- **iOS / iPadOS：必须是 Universal App（iPhone + iPad 同时支持，单一 target，不是 iPhone-only）。**
+  - iPad 要有适配大屏的布局（SwiftUI 自适应：`NavigationSplitView`、size classes），
+    **不能只是把 iPhone 界面拉伸**。
+  - 支持 iPadOS 多任务（Split View / Slide Over）与横竖屏。
+  - Info.plist 的 `UIDeviceFamily` 必须包含 2（iPad），不要只声明 iPhone。
+  - Live Activity / 灵动岛是 iPhone 特性；iPad 没有灵动岛，相关代码必须用
+    `#if os(iOS)` + 设备判断做条件处理，**不能因为 iPad 不支持就让构建失败**。
+  - iPad 也应有对应的 Widget / 大屏信息展示形态，而不是功能缺一块。
 - **音频后端**：复用上游 `micyou-cli serve`，不要自己实现虚拟音频设备
   （上游已实现 BlackHole / VB-CABLE / PipeWire）。
 - **协议**：真实协议见 `PROTOCOL.md`（magic `0x4D696359`、握手 `MicYouCheck1/2`、TCP 8554 / UDP 8555）。
