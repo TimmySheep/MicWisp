@@ -1,0 +1,34 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0-windows10.0.19041.0</TargetFramework>
+    <TargetPlatformMinVersion>10.0.19041.0</TargetPlatformMinVersion>
+    <RootNamespace>MicWisp.Windows</RootNamespace>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+    <Platforms>x64;ARM64</Platforms>
+    <RuntimeIdentifiers>win-x64;win-arm64</RuntimeIdentifiers>
+    <UseWinUI>true</UseWinUI>
+    <WindowsPackageType>MSIX</WindowsPackageType>
+    <WindowsAppSDKSelfContained>true</WindowsAppSDKSelfContained>
+    <EnableMsixTooling>true</EnableMsixTooling>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <LangVersion>12</LangVersion>
+    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+    <AppxPackageSigningEnabled>false</AppxPackageSigningEnabled>
+    <MicWispCliPath Condition="'$(MicWispCliPath)' == ''"></MicWispCliPath>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.WindowsAppSDK" Version="1.6.250205002" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="..\..\..\core\LICENSE-GPL-3.0.txt" Link="Assets\Licenses\GPL-3.0.txt" CopyToOutputDirectory="PreserveNewest" />
+    <Content Include="..\..\..\core\UPSTREAM-LICENSE.txt" Link="Assets\Licenses\UPSTREAM-LICENSE.txt" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+  <ItemGroup Condition="'$(MicWispCliPath)' != ''">
+    <Content Include="$(MicWispCliPath)" Link="Helpers\micyou-cli.exe" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+  <Target Name="ValidateMicWispSidecar" BeforeTargets="PrepareForBuild" Condition="'$(MicWispCliPath)' != ''">
+    <Error Condition="!Exists('$(MicWispCliPath)')" Text="MicWispCliPath must name the patched micyou-cli.exe built for this target architecture." />
+  </Target>
+</Project>

@@ -1,0 +1,22 @@
+<Window
+    x:Class="MicWisp.Windows.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:MicWisp.Windows"
+    Title="MicWisp">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <CommandBar x:Name="TopBar" Grid.Row="0" DefaultLabelPosition="Right">
+            <AppBarButton x:Name="ServiceButton" Icon="Microphone" Label="Start receiving" />
+            <CommandBar.Content>
+                <TextBlock x:Name="StatusText" VerticalAlignment="Center" Margin="16,0,0,0" />
+            </CommandBar.Content>
+        </CommandBar>
+        <NavigationView x:Name="Navigation" Grid.Row="1" IsSettingsVisible="False" IsBackButtonVisible="Collapsed" SelectionChanged="Navigation_SelectionChanged">
+            <Frame x:Name="ContentFrame" />
+        </NavigationView>
+    </Grid>
+</Window>

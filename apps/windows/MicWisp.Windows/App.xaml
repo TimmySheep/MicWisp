@@ -1,0 +1,11 @@
+<Application
+    x:Class="MicWisp.Windows.App"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:MicWisp.Windows">
+    <Application.Resources>
+        <ResourceDictionary>
+            <XamlControlsResources xmlns="using:Microsoft.UI.Xaml.Controls" />
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>

@@ -1,6 +1,6 @@
-# MicYou iOS 自研客户端 — 项目仓库
+# MicWisp — 独立 iOS 客户端项目
 
-Timmy 的独立 iOS 客户端项目工作区。目标：用 Swift 自己重写一个 iPhone → PC 无线麦克风客户端，加灵动岛支持，**全开源 + 纯打赏（Apple IAP tip）**，不做付费解锁。
+面向 MicYou 无线麦克风协议的第三方独立 iPhone → PC 客户端。使用 Swift / Apple 原生框架实现，目标包含灵动岛；**全开源 + 纯打赏（Apple IAP tip）**，不做付费解锁，也不隶属于 MicYou 官方项目。
 
 ## 为什么自研而不是 Fork
 

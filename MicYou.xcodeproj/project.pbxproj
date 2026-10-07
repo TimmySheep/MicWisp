@@ -1,0 +1,186 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		200000000000000000000001 /* MicYouFrame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 100000000000000000000001 /* MicYouFrame.swift */; };
+		200000000000000000000002 /* MicYouMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 100000000000000000000002 /* MicYouMessage.swift */; };
+		200000000000000000000003 /* ProtobufCodec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 100000000000000000000003 /* ProtobufCodec.swift */; };
+		200000000000000000000004 /* Brand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 100000000000000000000004 /* Brand.swift */; };
+		200000000000000000000005 /* MicYouApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 100000000000000000000005 /* MicYouApp.swift */; };
+		200000000000000000000006 /* MicYouAppModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 100000000000000000000006 /* MicYouAppModel.swift */; };
+		200000000000000000000007 /* MicYouSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 100000000000000000000007 /* MicYouSettings.swift */; };
+		200000000000000000000008 /* MicYouTCPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 100000000000000000000008 /* MicYouTCPClient.swift */; };
+		200000000000000000000009 /* MicYouServiceDiscovery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 100000000000000000000009 /* MicYouServiceDiscovery.swift */; };
+		200000000000000000000010 /* MicYouMicrophone.swift in Sources */ = {isa = PBXBuildFile; fileRef = 100000000000000000000010 /* MicYouMicrophone.swift */; };
+		200000000000000000000011 /* MicYouActivityAttributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 100000000000000000000011 /* MicYouActivityAttributes.swift */; };
+		200000000000000000000012 /* MicYouActivityCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 100000000000000000000012 /* MicYouActivityCoordinator.swift */; };
+		200000000000000000000013 /* MicYouLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 100000000000000000000013 /* MicYouLogger.swift */; };
+		200000000000000000000014 /* MicYouNotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 100000000000000000000014 /* MicYouNotificationService.swift */; };
+		200000000000000000000015 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 100000000000000000000015 /* ContentView.swift */; };
+		200000000000000000000016 /* MicYouSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 100000000000000000000016 /* MicYouSettingsView.swift */; };
+		200000000000000000000017 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 300000000000000000000010 /* Localizable.strings */; };
+		200000000000000000000018 /* MicYouActivityAttributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 100000000000000000000011 /* MicYouActivityAttributes.swift */; };
+		200000000000000000000019 /* MicYouLiveActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 100000000000000000000017 /* MicYouLiveActivity.swift */; };
+		200000000000000000000020 /* MicYouLiveActivity.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 100000000000000000000019 /* MicYouLiveActivity.appex */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		200000000000000000000021 /* Brand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 100000000000000000000004 /* Brand.swift */; };
+		200000000000000000000022 /* MicWispStatusWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 100000000000000000000028 /* MicWispStatusWidget.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		500000000000000000000004 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 800000000000000000000001 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 500000000000000000000002;
+			remoteInfo = MicYouLiveActivity;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		400000000000000000000003 /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (200000000000000000000020 /* MicYouLiveActivity.appex in Embed App Extensions */, );
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		100000000000000000000001 /* MicYouFrame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MicYouFrame.swift; sourceTree = "<group>"; };
+		100000000000000000000002 /* MicYouMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MicYouMessage.swift; sourceTree = "<group>"; };
+		100000000000000000000003 /* ProtobufCodec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProtobufCodec.swift; sourceTree = "<group>"; };
+		100000000000000000000004 /* Brand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Brand.swift; sourceTree = "<group>"; };
+		100000000000000000000005 /* MicYouApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = App/MicYouApp.swift; sourceTree = "<group>"; };
+		100000000000000000000006 /* MicYouAppModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = App/MicYouAppModel.swift; sourceTree = "<group>"; };
+		100000000000000000000007 /* MicYouSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Models/MicYouSettings.swift; sourceTree = "<group>"; };
+		100000000000000000000008 /* MicYouTCPClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Networking/MicYouTCPClient.swift; sourceTree = "<group>"; };
+		100000000000000000000009 /* MicYouServiceDiscovery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Discovery/MicYouServiceDiscovery.swift; sourceTree = "<group>"; };
+		100000000000000000000010 /* MicYouMicrophone.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Audio/MicYouMicrophone.swift; sourceTree = "<group>"; };
+		100000000000000000000011 /* MicYouActivityAttributes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Services/MicYouActivityAttributes.swift; sourceTree = "<group>"; };
+		100000000000000000000012 /* MicYouActivityCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Services/MicYouActivityCoordinator.swift; sourceTree = "<group>"; };
+		100000000000000000000013 /* MicYouLogger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Services/MicYouLogger.swift; sourceTree = "<group>"; };
+		100000000000000000000014 /* MicYouNotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Services/MicYouNotificationService.swift; sourceTree = "<group>"; };
+		100000000000000000000015 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Views/ContentView.swift; sourceTree = "<group>"; };
+		100000000000000000000016 /* MicYouSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Views/MicYouSettingsView.swift; sourceTree = "<group>"; };
+		100000000000000000000017 /* MicYouLiveActivity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MicYouLiveActivity.swift; sourceTree = "<group>"; };
+		100000000000000000000018 /* MicYouApp-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		100000000000000000000020 /* MicYouWidget-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		100000000000000000000019 /* MicYouLiveActivity.appex */ = {isa = PBXFileReference; explicitFileType = wrapper.app-extension; includeInIndex = 0; path = MicYouLiveActivity.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		100000000000000000000021 /* MicWisp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MicWisp.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		100000000000000000000022 /* Localizable.strings (en) */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		100000000000000000000023 /* Localizable.strings (zh-Hans) */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
+		100000000000000000000024 /* Localizable.strings (zh-Hant) */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/Localizable.strings"; sourceTree = "<group>"; };
+		100000000000000000000025 /* Product.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Config/Product.xcconfig; sourceTree = SOURCE_ROOT; };
+		100000000000000000000026 /* MicWisp.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MicWisp.entitlements; sourceTree = "<group>"; };
+		100000000000000000000027 /* MicWispWidget.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MicWispWidget.entitlements; sourceTree = "<group>"; };
+		100000000000000000000028 /* MicWispStatusWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MicWispStatusWidget.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		400000000000000000000001 /* Frameworks */ = {isa = PBXFrameworksBuildPhase; buildActionMask = 2147483647; files = (); runOnlyForDeploymentPostprocessing = 0; };
+		400000000000000000000002 /* Frameworks */ = {isa = PBXFrameworksBuildPhase; buildActionMask = 2147483647; files = (); runOnlyForDeploymentPostprocessing = 0; };
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		300000000000000000000001 = {
+			isa = PBXGroup;
+			children = (300000000000000000000002 /* Sources */, 300000000000000000000003 /* Products */, 300000000000000000000011 /* Config */, );
+			sourceTree = "<group>";
+		};
+		300000000000000000000002 /* Sources */ = {
+			isa = PBXGroup;
+			children = (300000000000000000000004 /* MicYouCore */, 300000000000000000000005 /* MicYouApp */, 300000000000000000000006 /* MicYouWidget */, );
+			path = Sources;
+			sourceTree = "<group>";
+		};
+		300000000000000000000003 /* Products */ = {isa = PBXGroup; children = (100000000000000000000021 /* MicWisp.app */, 100000000000000000000019 /* MicYouLiveActivity.appex */, ); name = Products; sourceTree = "<group>"; };
+		300000000000000000000004 /* MicYouCore */ = {isa = PBXGroup; children = (300000000000000000000007 /* Protocol */, ); path = MicYouCore; sourceTree = "<group>"; };
+		300000000000000000000005 /* MicYouApp */ = {isa = PBXGroup; children = (100000000000000000000004 /* Brand.swift */, 100000000000000000000005 /* MicYouApp.swift */, 100000000000000000000006 /* MicYouAppModel.swift */, 100000000000000000000007 /* MicYouSettings.swift */, 100000000000000000000008 /* MicYouTCPClient.swift */, 100000000000000000000009 /* MicYouServiceDiscovery.swift */, 100000000000000000000010 /* MicYouMicrophone.swift */, 100000000000000000000011 /* MicYouActivityAttributes.swift */, 100000000000000000000012 /* MicYouActivityCoordinator.swift */, 100000000000000000000013 /* MicYouLogger.swift */, 100000000000000000000014 /* MicYouNotificationService.swift */, 100000000000000000000015 /* ContentView.swift */, 100000000000000000000016 /* MicYouSettingsView.swift */, 100000000000000000000018 /* MicYouApp-Info.plist */, 100000000000000000000026 /* MicWisp.entitlements */, 300000000000000000000008 /* Resources */, ); path = MicYouApp; sourceTree = "<group>"; };
+		300000000000000000000006 /* MicYouWidget */ = {isa = PBXGroup; children = (100000000000000000000017 /* MicYouLiveActivity.swift */, 100000000000000000000020 /* MicYouWidget-Info.plist */, 100000000000000000000027 /* MicWispWidget.entitlements */, 100000000000000000000028 /* MicWispStatusWidget.swift */, ); path = MicYouWidget; sourceTree = "<group>"; };
+		300000000000000000000007 /* Protocol */ = {isa = PBXGroup; children = (100000000000000000000001 /* MicYouFrame.swift */, 100000000000000000000002 /* MicYouMessage.swift */, 100000000000000000000003 /* ProtobufCodec.swift */, ); path = Protocol; sourceTree = "<group>"; };
+		300000000000000000000008 /* Resources */ = {isa = PBXGroup; children = (300000000000000000000010 /* Localizable.strings */, ); path = Resources; sourceTree = "<group>"; };
+		300000000000000000000009 /* Localizations */ = {isa = PBXGroup; children = (100000000000000000000022 /* Localizable.strings (en) */, 100000000000000000000023 /* Localizable.strings (zh-Hans) */, 100000000000000000000024 /* Localizable.strings (zh-Hant) */, ); name = Localizations; sourceTree = "<group>"; };
+		300000000000000000000010 /* Localizable.strings */ = {isa = PBXVariantGroup; children = (100000000000000000000022 /* Localizable.strings (en) */, 100000000000000000000023 /* Localizable.strings (zh-Hans) */, 100000000000000000000024 /* Localizable.strings (zh-Hant) */, ); name = Localizable.strings; sourceTree = "<group>"; };
+		300000000000000000000011 /* Config */ = {isa = PBXGroup; children = (100000000000000000000025 /* Product.xcconfig */, ); name = Config; sourceTree = "<group>"; };
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		500000000000000000000001 /* MicWisp */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 700000000000000000000002 /* Build configuration list for PBXNativeTarget MicWisp */;
+			buildPhases = (400000000000000000000004 /* Sources */, 400000000000000000000001 /* Frameworks */, 400000000000000000000005 /* Resources */, 400000000000000000000003 /* Embed App Extensions */, );
+			buildRules = ();
+			dependencies = (500000000000000000000003 /* PBXTargetDependency */, );
+			name = MicWisp;
+			productName = MicWisp;
+			productReference = 100000000000000000000021 /* MicWisp.app */;
+			productType = "com.apple.product-type.application";
+		};
+		500000000000000000000002 /* MicYouLiveActivity */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 700000000000000000000003 /* Build configuration list for PBXNativeTarget MicYouLiveActivity */;
+			buildPhases = (400000000000000000000006 /* Sources */, 400000000000000000000002 /* Frameworks */, 400000000000000000000007 /* Resources */, );
+			buildRules = ();
+			dependencies = ();
+			name = MicYouLiveActivity;
+			productName = MicYouLiveActivity;
+			productReference = 100000000000000000000019 /* MicYouLiveActivity.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		800000000000000000000001 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {BuildIndependentTargetsInParallel = 1; LastUpgradeCheck = 2700; TargetAttributes = {500000000000000000000001 = {CreatedOnToolsVersion = 27.0; }; 500000000000000000000002 = {CreatedOnToolsVersion = 27.0; }; }; };
+			buildConfigurationList = 700000000000000000000001 /* Build configuration list for PBXProject */;
+			compatibilityVersion = "Xcode 15.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (en, Base, "zh-Hans", "zh-Hant", );
+			mainGroup = 300000000000000000000001;
+			productRefGroup = 300000000000000000000003 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (500000000000000000000001 /* MicWisp */, 500000000000000000000002 /* MicYouLiveActivity */, );
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		400000000000000000000005 /* Resources */ = {isa = PBXResourcesBuildPhase; buildActionMask = 2147483647; files = (200000000000000000000017 /* Localizable.strings in Resources */, ); runOnlyForDeploymentPostprocessing = 0; };
+		400000000000000000000007 /* Resources */ = {isa = PBXResourcesBuildPhase; buildActionMask = 2147483647; files = (); runOnlyForDeploymentPostprocessing = 0; };
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		400000000000000000000004 /* Sources */ = {isa = PBXSourcesBuildPhase; buildActionMask = 2147483647; files = (200000000000000000000001 /* MicYouFrame.swift in Sources */, 200000000000000000000002 /* MicYouMessage.swift in Sources */, 200000000000000000000003 /* ProtobufCodec.swift in Sources */, 200000000000000000000004 /* Brand.swift in Sources */, 200000000000000000000005 /* MicYouApp.swift in Sources */, 200000000000000000000006 /* MicYouAppModel.swift in Sources */, 200000000000000000000007 /* MicYouSettings.swift in Sources */, 200000000000000000000008 /* MicYouTCPClient.swift in Sources */, 200000000000000000000009 /* MicYouServiceDiscovery.swift in Sources */, 200000000000000000000010 /* MicYouMicrophone.swift in Sources */, 200000000000000000000011 /* MicYouActivityAttributes.swift in Sources */, 200000000000000000000012 /* MicYouActivityCoordinator.swift in Sources */, 200000000000000000000013 /* MicYouLogger.swift in Sources */, 200000000000000000000014 /* MicYouNotificationService.swift in Sources */, 200000000000000000000015 /* ContentView.swift in Sources */, 200000000000000000000016 /* MicYouSettingsView.swift in Sources */, ); runOnlyForDeploymentPostprocessing = 0; };
+		400000000000000000000006 /* Sources */ = {isa = PBXSourcesBuildPhase; buildActionMask = 2147483647; files = (200000000000000000000021 /* Brand.swift in Sources */, 200000000000000000000018 /* MicYouActivityAttributes.swift in Sources */, 200000000000000000000019 /* MicYouLiveActivity.swift in Sources */, 200000000000000000000022 /* MicWispStatusWidget.swift in Sources */, ); runOnlyForDeploymentPostprocessing = 0; };
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		500000000000000000000003 /* PBXTargetDependency */ = {isa = PBXTargetDependency; target = 500000000000000000000002 /* MicYouLiveActivity */; targetProxy = 500000000000000000000004 /* PBXContainerItemProxy */; };
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		600000000000000000000001 /* Project Debug */ = {isa = XCBuildConfiguration; buildSettings = {ALWAYS_SEARCH_USER_PATHS = NO; CLANG_ENABLE_MODULES = YES; CLANG_ENABLE_OBJC_ARC = YES; IPHONEOS_DEPLOYMENT_TARGET = 16.1; SDKROOT = iphoneos; SWIFT_VERSION = 5.0; }; name = Debug; };
+		600000000000000000000002 /* Project Release */ = {isa = XCBuildConfiguration; buildSettings = {ALWAYS_SEARCH_USER_PATHS = NO; CLANG_ENABLE_MODULES = YES; CLANG_ENABLE_OBJC_ARC = YES; IPHONEOS_DEPLOYMENT_TARGET = 16.1; SDKROOT = iphoneos; SWIFT_VERSION = 5.0; }; name = Release; };
+		600000000000000000000003 /* App Debug */ = {isa = XCBuildConfiguration; baseConfigurationReference = 100000000000000000000025 /* Product.xcconfig */; buildSettings = {CODE_SIGN_ENTITLEMENTS = Sources/MicYouApp/MicWisp.entitlements; CODE_SIGN_STYLE = Automatic; GENERATE_INFOPLIST_FILE = NO; INFOPLIST_FILE = Sources/MicYouApp/Info.plist; PRODUCT_BUNDLE_IDENTIFIER = "$(MICWISP_BUNDLE_IDENTIFIER)"; PRODUCT_NAME = "$(MICWISP_PRODUCT_NAME)"; }; name = Debug; };
+		600000000000000000000004 /* App Release */ = {isa = XCBuildConfiguration; baseConfigurationReference = 100000000000000000000025 /* Product.xcconfig */; buildSettings = {CODE_SIGN_ENTITLEMENTS = Sources/MicYouApp/MicWisp.entitlements; CODE_SIGN_STYLE = Automatic; GENERATE_INFOPLIST_FILE = NO; INFOPLIST_FILE = Sources/MicYouApp/Info.plist; PRODUCT_BUNDLE_IDENTIFIER = "$(MICWISP_BUNDLE_IDENTIFIER)"; PRODUCT_NAME = "$(MICWISP_PRODUCT_NAME)"; }; name = Release; };
+		600000000000000000000005 /* Widget Debug */ = {isa = XCBuildConfiguration; baseConfigurationReference = 100000000000000000000025 /* Product.xcconfig */; buildSettings = {APPLICATION_EXTENSION_API_ONLY = YES; CODE_SIGN_ENTITLEMENTS = Sources/MicYouWidget/MicWispWidget.entitlements; CODE_SIGN_STYLE = Automatic; GENERATE_INFOPLIST_FILE = NO; INFOPLIST_FILE = Sources/MicYouWidget/Info.plist; PRODUCT_BUNDLE_IDENTIFIER = "$(MICWISP_BUNDLE_IDENTIFIER).LiveActivity"; PRODUCT_NAME = MicYouLiveActivity; SKIP_INSTALL = YES; }; name = Debug; };
+		600000000000000000000006 /* Widget Release */ = {isa = XCBuildConfiguration; baseConfigurationReference = 100000000000000000000025 /* Product.xcconfig */; buildSettings = {APPLICATION_EXTENSION_API_ONLY = YES; CODE_SIGN_ENTITLEMENTS = Sources/MicYouWidget/MicWispWidget.entitlements; CODE_SIGN_STYLE = Automatic; GENERATE_INFOPLIST_FILE = NO; INFOPLIST_FILE = Sources/MicYouWidget/Info.plist; PRODUCT_BUNDLE_IDENTIFIER = "$(MICWISP_BUNDLE_IDENTIFIER).LiveActivity"; PRODUCT_NAME = MicYouLiveActivity; SKIP_INSTALL = YES; }; name = Release; };
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		700000000000000000000001 /* Project configuration list */ = {isa = XCConfigurationList; buildConfigurations = (600000000000000000000001 /* Project Debug */, 600000000000000000000002 /* Project Release */, ); defaultConfigurationIsVisible = 0; defaultConfigurationName = Release; };
+		700000000000000000000002 /* App configuration list */ = {isa = XCConfigurationList; buildConfigurations = (600000000000000000000003 /* App Debug */, 600000000000000000000004 /* App Release */, ); defaultConfigurationIsVisible = 0; defaultConfigurationName = Release; };
+		700000000000000000000003 /* Widget configuration list */ = {isa = XCConfigurationList; buildConfigurations = (600000000000000000000005 /* Widget Debug */, 600000000000000000000006 /* Widget Release */, ); defaultConfigurationIsVisible = 0; defaultConfigurationName = Release; };
+/* End XCConfigurationList section */
+	};
+	rootObject = 800000000000000000000001 /* Project object */;
+}

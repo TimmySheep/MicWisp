@@ -1,0 +1,6 @@
+Repository: https://github.com/MicYou-Dev/MicYou.git
+Branch: master
+Commit: 0c69fdd4b0c26553bd4a74aed38a808f0fce621a
+Checked: 2026-10-08
+Patch: patches/0001-cli-jsonl-control-channel.patch
+Added source: patches/micyou-cli-jsonl/src/jsonl.rs

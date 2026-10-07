@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CFBundleDisplayName</key>
+	<string>$(MICWISP_PRODUCT_NAME)</string>
+	<key>CFBundleIdentifier</key>
+	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
+	<key>CFBundleInfoDictionaryVersion</key>
+	<string>6.0</string>
+	<key>CFBundleName</key>
+	<string>$(PRODUCT_NAME)</string>
+	<key>CFBundlePackageType</key>
+	<string>APPL</string>
+	<key>CFBundleShortVersionString</key>
+	<string>0.1.0</string>
+	<key>CFBundleVersion</key>
+	<string>1</string>
+	<key>LSRequiresIPhoneOS</key>
+	<true/>
+	<key>NSLocalNetworkUsageDescription</key>
+	<string>MicWisp searches your local network for compatible MicYou servers and sends microphone audio to the server you select.</string>
+	<key>NSBonjourServices</key>
+	<array>
+		<string>_micyou._tcp</string>
+	</array>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>MicWisp uses the microphone to stream audio to your selected computer.</string>
+	<key>NSSupportsLiveActivities</key>
+	<true/>
+	<key>UIApplicationSceneManifest</key>
+	<dict>
+		<key>UIApplicationSupportsMultipleScenes</key>
+		<false/>
+	</dict>
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>audio</string>
+	</array>
+	<key>UILaunchScreen</key>
+	<dict/>
+	<key>UIRequiredDeviceCapabilities</key>
+	<array>
+		<string>arm64</string>
+	</array>
+	<key>UISupportedInterfaceOrientations</key>
+	<array>
+		<string>UIInterfaceOrientationPortrait</string>
+		<string>UIInterfaceOrientationLandscapeLeft</string>
+		<string>UIInterfaceOrientationLandscapeRight</string>
+	</array>
+	<key>UIViewControllerBasedStatusBarAppearance</key>
+	<true/>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+	<key>CFBundleURLName</key>
+			<string>$(MICWISP_PRODUCT_NAME)</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>$(MICWISP_URL_SCHEME)</string>
+			</array>
+		</dict>
+	</array>
+	<key>MICWISP_URL_SCHEME</key>
+	<string>$(MICWISP_URL_SCHEME)</string>
+	<key>MICWISP_APP_GROUP</key>
+	<string>$(MICWISP_APP_GROUP)</string>
+</dict>
+</plist>
