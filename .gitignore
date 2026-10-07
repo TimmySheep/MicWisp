@@ -1,0 +1,16 @@
+# 上游 GPL 代码：仅本地只读参考，不纳入本仓库
+MicYou-iOS/
+
+# macOS
+.DS_Store
+
+# 构建产物
+build/
+DerivedData/
+*.o
+*.a
+build.log
+
+# Xcode
+xcuserdata/
+*.xcuserstate
