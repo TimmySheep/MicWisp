@@ -1,79 +1,80 @@
-# MicYou 真实协议规格（v2 — 已更正）
+# MicYou 真实协议规格（v3 — 已用客户端源码验证）
 
-> ⚠️ **本文档替换了初版。** 初版基于官方 `MicYou-Dev/MicYou-iOS` 仓库的 `Protocol.m` 整理，
-> 但经与 MicYou **主仓库**（`MicYou-Dev/MicYou`，含真实桌面端实现）交叉核验后确认：
-> **那套协议与真实桌面端不兼容，初版结论是错的。** 本文以主仓库 Rust/Android 实现为准。
+> 本文档由 Hermes 只读研究 MicYou **主仓库**（`MicYou-Dev/MicYou`）整理。
+> 来源：`tauri-app/crates/micyou-protocol/`、`micyou-core/src/transport/`、
+> `composeApp/.../network/Protocol.kt`、`composeApp/.../audio/AudioEngine.kt`（Android 客户端连接实现）。
+> 内容是协议事实的独立复述，不含上游代码。
 >
-> 来源（只读核验）：`tauri-app/crates/micyou-protocol/`、`tauri-app/crates/micyou-core/src/transport/`、
-> `composeApp/src/main/kotlin/com/lanrhyme/micyou/network/Protocol.kt`。
-> 本文是协议事实的独立复述，不含上游代码。
+> **v1 勘误**：初版基于官方 `MicYou-iOS` 脚手架的 `Protocol.m`（magic `0x694F5354`/端口 8900），
+> 与真实桌面端**不互通**，已作废。以本文为准。
 
-## 0. 关键更正摘要
+## 0. 关键事实
 
-| 项 | 初版（基于 iOS 脚手架）❌ | 真实协议 ✅ |
-|---|---|---|
-| 帧头 magic | `0x694F5354`（"iOST"） | `0x4D696359`（"MicY"） |
-| 帧结构 | 16 字节头（magic/type/len/seq） | 8 字节头（magic/len）+ Protobuf |
-| 负载编码 | 裸 PCM 自定义结构 | **Protocol Buffers** |
-| TCP 端口 | 8900 | **8554**（默认，可配置） |
-| 握手 | 无（直接发 Hello 帧） | 先发裸字符串 `"MicYouCheck1"` / 收 `"MicYouCheck2"` |
-| 音频编码 | 仅裸 PCM | PCM **或 Opus** |
-| 发现 | 无 | mDNS `_micyou._tcp.local.` |
+| 项 | 值 |
+|---|---|
+| 帧头 magic（TCP） | `0x4D696359`（"MicY"） |
+| 帧头 magic（UDP） | `0x4D696355`（"MicU"） |
+| 帧结构 | 8 字节头（magic + len）+ **Protobuf** |
+| 默认端口 | TCP `8554`，UDP `8555`（= TCP + 1） |
+| 握手 | 裸字符串 `"MicYouCheck1"` → `"MicYouCheck2"` |
+| 音频编码 | PCM（codec 0）或 Opus（codec 1），**两者服务端都支持** |
+| 服务发现 | mDNS `_micyou._tcp.local.` |
 
-**结论：官方 iOS 脚手架用的是一套与真实桌面端不互通的协议。** 要么它是未完成的占位实现，
-要么它面向另一个服务端。写客户端必须以本文件的真实协议为准。
+**协议完全公开已知**——桌面端（Rust）与 Android 客户端（Kotlin）都是 GPL 开源，
+不需要逆向。**Android 客户端是一份完整可用的客户端参考实现**（见第 6 节）。
 
 ## 1. 传输层
 
 | 项 | 值 |
 |---|---|
 | 主通道 | TCP |
-| 默认 TCP 端口 | `8554`（`Constants.DEFAULT_TCP_PORT`，用户可配置） |
-| UDP 端口 | TCP 端口 `+ 1` → 默认 `8555` |
-| 服务发现 | mDNS：`_micyou._tcp.local.`（Web 模式：`_micyou-web._tcp.local.`） |
-| 字节序 | 大端（network byte order） |
-| 音频编码 | `0` = 裸 PCM（旧版默认），`1` = Opus |
+| 默认 TCP 端口 | `8554`（用户可配置） |
+| UDP 端口 | TCP + 1 → 默认 `8555` |
+| 传输模式 | `Tcp`（仅 TCP）/ `Both`（WiFi 下音频走 UDP，控制走 TCP） |
+| 服务发现 | mDNS `_micyou._tcp.local.`、`_micyou-web._tcp.local.` |
+| 字节序 | 大端 |
 
-> 注：`micyou-protocol` crate 里另有一个 `PORT = 9123` 常量，但**运行时默认端口是 8554**，
-> 9123 只见于测试/示例，疑为遗留常量。以 8554 为准，或直接用 mDNS 发现实际端口。
+> `micyou-protocol` crate 内的 `PORT = 9123` 只见于测试，运行时默认是 8554。
 
-## 2. 连接流程
+## 2. 连接流程（已由 Android 客户端源码验证）
 
 ```
 1. TCP 连接 host:8554
-2. 客户端发送裸字符串 "MicYouCheck1"（12 字节，不加帧头）
-3. 服务端回 "MicYouCheck2"（12 字节）
-4. 客户端发送第一个帧：Connect 消息（携带 sessionId）
-   —— 旧版客户端可跳过 Connect，直接发控制/音频帧
-5. 之后所有消息走「8 字节帧头 + Protobuf 负载」
-6. Ping 心跳（服务端每 500ms 发 Ping，客户端回 Pong）
-7. 音频可走 TCP（AudioPacketMessageOrdered）或 UDP（裸 Protobuf）
+2. 写裸字符串 "MicYouCheck1"（12 字节，非帧）
+3. 读 12 字节，必须等于 "MicYouCheck2"，否则握手失败
+4. 发送 Connect 帧：
+     writeInt(PACKET_MAGIC)   // 0x4D696359，大端
+     writeInt(payloadLen)     // 大端
+     writeFully( protobuf(MessageWrapper{ connect = ConnectMessage(sessionId) }) )
+5. 开始录音，持续发送音频帧（同帧格式）
+6. 音频可走 TCP（AudioPacketMessageOrdered）或 UDP（裸 Protobuf）
 ```
+
+**注意**：`UDP-only` 模式会跳过握手，但上游源码注释标注"这可能会有连接问题"。
+自研建议始终走 TCP 握手。
 
 ## 3. TCP 帧格式
 
-固定 8 字节头，后接 Protobuf 字节流：
-
 | 偏移 | 字段 | 类型 | 说明 |
 |---|---|---|---|
-| 0 | `magic` | int32（大端） | 固定 `0x4D696359`（"MicY"） |
-| 4 | `payloadLength` | int32（大端） | 后续 Protobuf 字节数，不得为负 |
+| 0 | `magic` | int32（大端） | `0x4D696359` |
+| 4 | `payloadLength` | int32（大端） | Protobuf 字节数，非负 |
 
-限制：`payloadLength ≤ 1 MiB`（`MAX_CONTROL_PAYLOAD_LEN`）。
+上限 `1 MiB`。每帧都是「magic + len + protobuf」，音频帧与 Connect 帧格式一致。
 
-## 4. Protobuf 消息定义（proto3，package `micyou`）
+## 4. Protobuf 消息（proto3，package `micyou`）
 
-以官方 `proto/network.proto` 为准，字段号如下（实现时用自己的类型，字段号必须一致）：
+字段号必须一致（自己写 `.proto`，不要复制上游文件）：
 
 ```proto
 message MessageWrapper {
-  AudioPacketMessageOrdered audioPacket = 1;  // TCP-only 模式
+  AudioPacketMessageOrdered audioPacket = 1;
   ConnectMessage connect = 2;
   MuteMessage mute = 3;
   // reserved 4
   PingMessage ping = 5;
   PongMessage pong = 6;
-  PluginMessage pluginMessage = 7;            // 跨设备插件消息
+  PluginMessage pluginMessage = 7;
 }
 
 message ConnectMessage   { int64 sessionId = 1; }   // 0 = 旧版客户端
@@ -85,60 +86,72 @@ message AudioPacketMessageOrdered {
   int32 sequenceNumber = 1;
   AudioPacketMessage audioPacket = 2;
   int64 timestamp = 3;
-  bytes fecBuffer = 4;              // 前向纠错
+  bytes fecBuffer = 4;
   int32 fecSequenceNumber = 5;
   int64 sessionId = 6;
   repeated uint32 fecPacketLengths = 7;
 }
 
 message AudioPacketMessage {
-  bytes buffer = 1;        // 音频数据（PCM 或 Opus）
+  bytes buffer = 1;
   int32 sampleRate = 2;
   int32 channelCount = 3;
-  int32 audioFormat = 4;   // 采集格式，仅供遥测
+  int32 audioFormat = 4;   // 采集格式，仅遥测
   int32 codec = 5;         // 0=PCM, 1=Opus
 }
 
 message PluginMessage {
-  string source = 1;
-  string target = 2;
-  string topic = 3;
-  bytes payload = 4;
-  uint64 correlationId = 5;
-  bool isResponse = 6;
-  int32 errorCode = 7;
-  string errorMessage = 8;
+  string source = 1;  string target = 2;  string topic = 3;
+  bytes payload = 4;  uint64 correlationId = 5;
+  bool isResponse = 6; int32 errorCode = 7; string errorMessage = 8;
 }
 ```
 
-## 5. UDP 通道
+## 5. 音频编码：PCM 与 Opus 都可以
 
-帧头同为 8 字节，magic 换成 `0x4D696355`（"MicU"），后接 Protobuf：
+服务端 `audio_pipeline.rs` 的 `decode()` 逻辑：
 
-| 项 | 值 |
-|---|---|
-| 头 | magic(4) + len(4) |
-| 最大音频负载 | 64 KiB（`MAX_AUDIO_PAYLOAD_LEN`） |
-| 最大数据报 | 1472 字节 |
-| PCM 建议负载 | 1320 字节 |
-| 端口 | TCP 端口 + 1 |
+```
+if codec == CODEC_OPUS { decode_opus(...) }
+else                   { decode_pcm(audio_format, ...) }
+```
 
-## 6. 自研 Swift 实现要点
+**结论：服务端同时支持两种编码，PCM 不是"过时路径"而是正常分支。**
+服务端内部统一重采样到 48 kHz f32。
 
-- **握手不能忘**：先写裸字节 `"MicYouCheck1"`，读 `"MicYouCheck2"`，再开始发帧。这是最容易漏的一步。
-- 帧头 8 字节手写即可；负载用 **SwiftProtobuf** 生成（从 `network.proto` 自己写一份同字段号的 `.proto`，不要复制上游文件）。
-- Opus 用 `libopus`（可先只支持 PCM codec=0，桌面端接受旧版 PCM）。
-- mDNS 发现用 `Network.framework` 的 `NWBrowser`（`_micyou._tcp`）。
-- 先做 TCP-only 模式（`AudioPacketMessageOrdered`），UDP + FEC 后续再加。
+- **只做 PCM（codec=0）是可行的**，能显著降低首版复杂度（不必在 Swift 里接 Opus）。
+- 若要用 Opus：采样率仅支持 8/12/16/24/48 kHz；Android 客户端把 44.1 kHz 映射到 48 kHz。
+- FEC 分组：每 12 个包生成 1 个 FEC 包（`FEC_GROUP_SIZE = 12`）。
 
-## 7. 许可边界
+## 6. 客户端参考实现（Android）
+
+Android 客户端 `AudioEngine.kt` 是完整可用的客户端，实现顺序：
+
+1. 建 TCP socket，取 output/input 流
+2. 握手（见第 2 节）
+3. 建 UDP socket（`Both` 模式且在 WiFi 下）
+4. `recorder.startRecording()`
+5. writer 循环：控制消息走 TCP；`Both` + WiFi 下音频走 UDP，否则 TCP
+6. reader 循环：处理服务端 Ping → 回 Pong
+
+自研 Swift 客户端可以逐段对照这份实现，不必猜测。
+
+## 7. 自研 Swift 实现要点
+
+- **握手别漏**：先写裸字节 `"MicYouCheck1"`，读回 `"MicYouCheck2"`，再发帧。
+- 用 **SwiftProtobuf**，自己照字段号写 `.proto`。
+- **首版可只做 PCM**，省掉 Opus 依赖；要压缩再加 `libopus`。
+- 用 `Network.framework`（`NWConnection`）替代 `CFStream`；mDNS 用 `NWBrowser`。
+- 先做 TCP-only，跑通后再加 UDP + FEC。
+
+## 8. 许可边界
 
 - 本文档是协议事实的独立复述，不含上游代码。
-- 上游 `MicYou`（含桌面端）为 **GPL-3.0 + Plugin Exception**；`MicYou-iOS` 脚手架为 **GPL-3.0**。
-- **协议接口（字段号、magic、握手串、端口）是接口事实，不受版权保护**——自己写实现不构成复制。
-- **不要**把上游 `.proto` 文件原样复制进本项目；照字段号自己写一份。
-- 修改上游核心源码（如 Fork 桌面端）→ 必须整体以 GPL-3.0 开源分发。打赏模式与 GPL 兼容。
+- 上游 `MicYou` 与 `MicYou-iOS` 均为 **GPL-3.0**（主项目带 Plugin Exception）。
+- **协议接口（字段号、magic、握手串、端口）是接口事实，不受版权保护**——独立实现不构成复制。
+- **不要**把上游 `.proto` 原样复制进本仓库。
+- Fork 上游核心源码 → 衍生作品须整体以 GPL-3.0 开源。打赏模式与 GPL 兼容。
 
 ---
 
-*核验基线：MicYou 主仓库（浅克隆，2026-10-08）；iOS 脚手架 branch `v2` commit `9ee4ea1`。*
+*核验基线：MicYou 主仓库浅克隆（2026-10-08）；iOS 脚手架 branch `v2` commit `9ee4ea1`。*
