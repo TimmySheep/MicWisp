@@ -64,6 +64,27 @@ DSP 链（降噪/AEC/去混响/EQ/AGC/VAD）、以及虚拟音频设备集成
 >    （**上游当前不存在此能力**，需维护 GPL 合规的上游补丁集）
 > 4. `mode_lock` 为 GUI/CLI/TUI 共享互斥锁；不许强杀进程或删锁文件
 
+> **⬇️ P1（本任务的核心难点）：上游补丁 + 双路交付**
+> 详见 **`docs/UPSTREAM-PATCH-AND-PR.md`**——**必须完整阅读并按其执行**。
+>
+> 摘要：
+> ① 做出**最小**补丁（只动 `tauri-app/crates/micyou-cli/`，仅在必要时碰 `micyou-core`）；
+>    **不得**改动 `micyou-protocol/`（会破坏与官方客户端的互通）。
+> ② **路径 A**：fork `MicYou-Dev/MicYou` → 分支 `feat/cli-jsonl-control-channel`
+>    → 本地构建通过 → **提 PR 到上游 `master`**。
+> ③ **路径 B**：若 PR 被拒/未合并，补丁留在 `core/` 本地使用
+>    （含基线钉死 `0c69fdd`、`apply-patches.sh`、`BUILD.md`）。
+>
+> **一份补丁服务两条路，不要做两遍。**本地补丁是 PR 的自然前置，不是替代关系。
+>
+> ⚠️ **PR 红线**：PR 中**不得**出现 `MicWisp` 品牌、产品链接、打赏链接或任何推广内容
+> ——那是**纯技术贡献**。动机可如实客观描述（"为支持第三方前端/自动化脚本"），
+> 维护者追问时如实回答，但**不推销、不攀附官方**。
+>
+> ⭐ **提 PR 的额外收益**：上游 CI 会在 GitHub 干净机器上构建
+> **Windows / macOS / Linux 三平台 + Android APK**——
+> 正好补上"本机无 .NET/Windows SDK、无法验证 Windows"的死结。
+
 ## 5. 交付物
 
 ### 5.1 目录结构（沿用 `apps/<platform>` 约定）
@@ -71,7 +92,7 @@ DSP 链（降噪/AEC/去混响/EQ/AGC/VAD）、以及虚拟音频设备集成
 ```
 apps/macos/      # SwiftUI 原生应用（含 Xcode 工程或 SwiftPM 工程）
 apps/windows/    # WinUI 3 / C# 原生应用（含解决方案文件）
-core/            # 控制层 / 对上游 CLI 的补丁集（如有）
+core/            # 控制层 + 上游 CLI 补丁集（补丁文件、基线钉死、应用脚本、构建说明）
 docs/            # 补充设计与决策记录
 ```
 

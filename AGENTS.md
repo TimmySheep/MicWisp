@@ -47,12 +47,22 @@
 6. **不谎报完成。** 构建失败就说失败；未验证就明确标注"未构建验证"。
    模拟器/本机编译成功不能替代实机与真实桌面端验收。
 
+7. **上游补丁与 PR（桌面线）——详见 `docs/UPSTREAM-PATCH-AND-PR.md`。**
+   - 补丁要**最小**：只动 `tauri-app/crates/micyou-cli/`，仅在必要时碰 `micyou-core`。
+   - **不得**改动 `micyou-protocol/`（会破坏与官方客户端的互通）。
+   - **两条路都要走**：先做本地可用补丁（路径 B 的基础）→ 再提 PR 到上游 `master`（路径 A）。
+     **一份补丁服务两条路，不要做两遍。**
+   - ⚠️ **PR 中不得出现 `MicWisp` 品牌、产品链接、打赏链接或任何推广内容**——
+     那是纯技术贡献。动机可客观描述，维护者追问时如实回答，但**不推销、不攀附官方**。
+   - 提交信息与 PR 标题用 **Conventional Commits**（上游硬性要求）。
+   - PR 前必须本地通过：`cargo build -p micyou-cli` 与 `cd tauri-app && bun run build`。
+
 ## 并行工作纪律（重要）
 
 两条工作线可能在**同一时间**被不同 agent 会话编辑。因此：
 
 - **只改自己范围内的文件。** 桌面线只写 `apps/macos/`、`apps/windows/`、
-  `core/`（如有）与自己新增的文档。
+  `core/` 与自己新增的文档。
 - `Sources/MicYouCore/`（Swift 协议核心）由 iOS 线维护：**桌面线视为只读共享代码**，
   如需改动，先在会话中明确说明理由，不要静默重写。
 - 不要触碰 `MicYou.xcodeproj/`、`Tests/`、`docs/PRODUCT_SCOPE.md`（iOS 线所有）。
@@ -73,7 +83,9 @@
 - **音频后端**：复用上游 `micyou-cli serve`，不要自己实现虚拟音频设备
   （上游已实现 BlackHole / VB-CABLE / PipeWire）。
 - **协议**：真实协议见 `PROTOCOL.md`（magic `0x4D696359`、握手 `MicYouCheck1/2`、TCP 8554 / UDP 8555）。
-- **控制通道**：上游 CLI 目前输出人类可读文本，需先设计结构化方案（见 `TASK.md` 第 4 节）。
+- **控制通道**：上游 CLI 目前输出人类可读文本，需先设计结构化方案
+  （见 `TASK.md` 第 4 节与 `docs/DESKTOP-PREWORK.md`）；
+  实现方式与双路交付要求见 **`docs/UPSTREAM-PATCH-AND-PR.md`**。
 
 ## 工作方式
 
