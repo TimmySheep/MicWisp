@@ -6,8 +6,12 @@
 
 | 工作线 | 范围 | 任务书 |
 |---|---|---|
-| **iOS 客户端（iPhone + iPad）** | `Sources/`、`Tests/`、`MicYou.xcodeproj/`、Live Activity、Widget | `docs/PRODUCT_SCOPE.md` |
+| **iOS / iPadOS 客户端** | `Sources/`、`Tests/`、Xcode 工程、Live Activity、Widget | `docs/PRODUCT_SCOPE.md` |
+| **Apple Watch 客户端** | `Sources/MicWispWatch/`、共享消息契约 | **`docs/WATCH-SCOPE.md`** |
 | **桌面客户端（macOS + Windows）** | `apps/macos/`、`apps/windows/` | **`TASK.md`** |
+
+> Apple Watch 线运行在**同一个 Xcode 工程、同一个 App bundle** 内（所以同许可 = MIT），
+> 但**文件边界独立**，细则见 `docs/WATCH-SCOPE.md`。
 
 ## 共享红线（两条工作线都适用）
 
@@ -65,7 +69,10 @@
   `core/` 与自己新增的文档。
 - `Sources/MicYouCore/`（Swift 协议核心）由 iOS 线维护：**桌面线视为只读共享代码**，
   如需改动，先在会话中明确说明理由，不要静默重写。
-- 不要触碰 `MicYou.xcodeproj/`、`Tests/`、`docs/PRODUCT_SCOPE.md`（iOS 线所有）。
+- 不要触碰 Xcode 工程文件、`Tests/`、`docs/PRODUCT_SCOPE.md`、
+  `docs/WATCH-SCOPE.md`、`Sources/MicWispWatch/`（iOS / Watch 线所有）。
+- **Apple Watch 线**的消息契约类型**优先以新增文件**放进 `Sources/MicWispCore/`，
+  避免与 iOS 线正在进行的文件改名冲突。
 - 需要新文档时，用带前缀的名字（如 `docs/DESKTOP-*.md`）避免冲突。
 
 ## 技术约定
