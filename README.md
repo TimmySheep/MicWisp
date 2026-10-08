@@ -1,6 +1,6 @@
 # MicWisp — 独立 iOS 客户端项目
 
-面向 MicYou 无线麦克风协议的第三方独立 iPhone → PC 客户端。使用 Swift / Apple 原生框架实现，目标包含灵动岛；**全开源 + 纯打赏（Apple IAP tip）**，不做付费解锁，也不隶属于 MicYou 官方项目。
+面向 MicYou 无线麦克风协议的第三方独立 iPhone → PC 客户端。使用 Swift / Apple 原生框架实现，目标包含灵动岛；**全开源**，也不隶属于 MicYou 官方项目。
 
 ## 为什么自研而不是 Fork
 
@@ -10,7 +10,7 @@
 1. **只读研究**上游协议（已完成，见 `PROTOCOL.md`）
 2. **用 Swift 独立重写**客户端，不复制上游代码
 3. 独立原生实现客户端完整功能，并加入灵动岛 / Live Activity
-4. 全开源，收入来自打赏
+4. 全开源
 
 协议接口本身不受版权保护，独立实现是干净的。
 
@@ -52,3 +52,17 @@ git clone --branch v2 https://github.com/MicYou-Dev/MicYou-iOS.git MicYou-iOS
 - 开发机：MacBook Pro（`tims-mbp`, macOS 27.0.1）
 - Xcode 工程目标：iOS 16.1+，arm64（Live Activity 最低系统版本）
 - 参考设备：iPhone 15（无个人数据，可用于测试）
+
+## Acknowledgments & Disclaimer
+
+This project is an independent, unofficial iOS client designed for compatibility with the "MicYou" (https://github.com/MicYou-Dev/MicYou) communication protocol and ecosystem.
+
+It is not an official MicYou application and is not affiliated with, endorsed by, or maintained by the MicYou team.
+
+We sincerely thank the original MicYou author, LanRhyme, and all contributors for their work on the project and its open-source ecosystem.
+
+We also acknowledge the existing "MicYou-iOS" (https://github.com/MicYou-Dev/MicYou-iOS) project and the work of its maintainers.
+
+This client is independently developed and maintained. Issues related to this application should be reported in this repository.
+
+Any reused MicYou source code or components will retain their applicable copyright notices and license terms.
