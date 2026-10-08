@@ -43,7 +43,7 @@ Android 调试 APK + **Windows / macOS / Linux 三平台 Tauri 安装包**。
 
 > **⭐ 关键收益**：CI 在 GitHub 的干净机器上跑三平台构建 →
 > **提 PR 就等于免费获得 Windows 构建验证**，
-> 解决了本项目"MacBook Pro 上无 .NET/Windows SDK、无法本地验证 Windows"的死结。
+> 解决了本项目"本机无 .NET/Windows SDK、无法本地验证 Windows"的死结。
 
 **未发现重复劳动**：搜索 `repo:MicYou-Dev/MicYou json` / `cli control` / `headless api`
 均无"CLI 运行时控制通道"相关 issue 或 PR。

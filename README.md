@@ -49,9 +49,7 @@ git clone --branch v2 https://github.com/MicYou-Dev/MicYou-iOS.git MicYou-iOS
 
 ## 环境
 
-- 开发机：MacBook Pro（`tims-mbp`, macOS 27.0.1）
 - Xcode 工程目标：iOS 16.1+，arm64（Live Activity 最低系统版本）
-- 参考设备：iPhone 15（无个人数据，可用于测试）
 
 ## Acknowledgments & Disclaimer
 
