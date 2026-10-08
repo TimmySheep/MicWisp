@@ -17,7 +17,7 @@
 ## 仓库结构
 
 ```
-micyou-ios-study/
+MicWisp/
 ├── PROTOCOL.md      # 协议规格（自研基线，自有文档）
 ├── README.md        # 本文件
 ├── AGENTS.md        # 给 AI agent 的项目规则

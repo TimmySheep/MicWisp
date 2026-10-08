@@ -43,7 +43,7 @@ Android 调试 APK + **Windows / macOS / Linux 三平台 Tauri 安装包**。
 
 > **⭐ 关键收益**：CI 在 GitHub 的干净机器上跑三平台构建 →
 > **提 PR 就等于免费获得 Windows 构建验证**，
-> 解决了本项目"本机无 .NET/Windows SDK、无法本地验证 Windows"的死结。
+> 解决了本项目"本地无 .NET/Windows SDK、无法本地验证 Windows"的死结。
 
 **未发现重复劳动**：搜索 `repo:MicYou-Dev/MicYou json` / `cli control` / `headless api`
 均无"CLI 运行时控制通道"相关 issue 或 PR。
@@ -171,6 +171,6 @@ Android 调试 APK + **Windows / macOS / Linux 三平台 Tauri 安装包**。
 ## 7. 边界
 
 - 不许碰 iOS/iPadOS 线（`Sources/`、`Tests/`、`MicYou.xcodeproj/`、`docs/PRODUCT_SCOPE.md`）
-- 不许动 Timmy 的 Windows 电脑
+- 不许在用户机器上安装或改动软件
 - 不用中文产品名（产品名只有英文 `MicWisp`）
 - **不得**把 `MicWisp` 品牌带进上游 PR

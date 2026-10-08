@@ -30,7 +30,7 @@ bun run build
 
 - 固定基线与补丁应用上下文已针对只读参考 checkout 做 `git apply --check`（检查模式，不修改 checkout）。
 - 本任务尚未在可写独立上游 checkout 运行 Rust 编译、Rust 测试或 `bun run build`；因此这些构建均**未验证**。
-- macOS 客户端真实音频端到端及 Windows 构建/运行还需分别按各平台验收。当前 Mac 没有 .NET SDK，不得改动用户 Windows 电脑。
+- macOS 客户端真实音频端到端及 Windows 构建/运行还需分别按各平台验收。Windows 构建需在 Windows 环境中验证，不得改动用户机器。
 
 ## GPL-3.0 对应源码与上游 PR
 
