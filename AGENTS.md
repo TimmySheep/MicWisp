@@ -45,7 +45,7 @@
    - 若新引入的依赖或组件造成许可冲突（如把 GPL 库引入 MIT 部分），**先停下报告**。
 
 5. **不要擅自改动用户的机器。** 尤其：
-   - 不要修改用户的 Windows 电脑，不要在那里安装软件或远程执行命令。
+   - 不要在未获授权的机器上安装软件或远程执行命令。
    - 不要在未获批准前改动系统配置、网络设置或删除文件。
 
 6. **不谎报完成。** 构建失败就说失败；未验证就明确标注"未构建验证"。
@@ -87,7 +87,7 @@
 ## 技术约定
 
 - **macOS**：Swift 6 / SwiftUI，优先 SwiftPM 或标准 Xcode 工程。
-- **Windows**：WinUI 3 / C#（本机无 .NET SDK，构建验证可能需在 Windows 上进行）。
+- **Windows**：WinUI 3 / C#（构建验证需在 Windows 环境中进行）。
 - **iOS / iPadOS：必须是 Universal App（iPhone + iPad 同时支持，单一 target，不是 iPhone-only）。**
   - iPad 要有适配大屏的布局（SwiftUI 自适应：`NavigationSplitView`、size classes），
     **不能只是把 iPhone 界面拉伸**。
